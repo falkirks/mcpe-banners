@@ -1,10 +1,9 @@
 'use strict';
 var gm = require('gm').subClass({imageMagick: true});
 var mcpeping = require('mcpe-ping');
-var merge = require('merge');
 var Handlebars = require('handlebars');
 module.exports = function (address, port, style, cb) {
-  if (typeof style == "function" && cb == null) {
+  if (typeof style === "function" && cb === null) {
     cb = style;
     style = null;
   }
@@ -56,7 +55,7 @@ module.exports = function (address, port, style, cb) {
           content: "{{#if online}}{{currentPlayers}}/{{maxPlayers}}{{/if}}"
         }
       ]
-    }
+    };
   }
   mcpeping(address, port, function (err, res) {
     if (err) {
