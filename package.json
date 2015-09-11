@@ -1,0 +1,46 @@
+{
+  "name": "mcpe-banners",
+  "version": "0.0.0",
+  "description": "Cute module for generating MCPE server banners.",
+  "homepage": "https://github.com/Falkirks/mcpe-banners",
+  "author": {
+    "name": "Falkirks",
+    "email": "me@falkirks.com",
+    "url": "http://falkirks.com"
+  },
+  "repository": "Falkirks/mcpe-banners",
+  "license": "MIT",
+  "files": [
+    "index.js",
+    "cli.js"
+  ],
+  "keywords": [
+    "mcpe-banners",
+    "mcpe",
+    "pocketmine",
+    "image"
+  ],
+  "dependencies": {
+    "gm": "^1.18.1",
+    "handlebars": "^4.0.2",
+    "mcpe-ping": "0.0.0",
+    "meow": "^3.1.0",
+    "merge": "^1.2.0"
+  },
+  "devDependencies": {
+    "grunt-cli": "^0.1.13",
+    "grunt-contrib-jshint": "^0.11.0",
+    "grunt-contrib-nodeunit": "^0.4.1",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-mocha-cli": "^1.12.0",
+    "jshint-stylish": "^1.0.1",
+    "load-grunt-tasks": "^3.1.0",
+    "time-grunt": "^1.1.0"
+  },
+  "scripts": {
+    "test": "grunt"
+  },
+  "bin": {
+    "mcpe-banners": "cli.js"
+  }
+}
