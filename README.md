@@ -1,13 +1,6 @@
-mcpe-banners
-============
-This is a cute little Node.js library for generating MCPE server banners. It is part of a new lean backend for http://banner.mcpe.me.
-
-
 #  [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
 
-> Pings an MCPE server for simple data.
-
-This is a port of `mc-ping` for MCPE. 
+> This is a cute little Node.js library for generating MCPE server banners. It is part of a new lean backend for http://banner.mcpe.me.
 
 ## Install
 
