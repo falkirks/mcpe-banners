@@ -2,6 +2,23 @@
 var gm = require('gm').subClass({imageMagick: true});
 var mcpeping = require('mcpe-ping');
 var Handlebars = require('handlebars');
+var CACHE_TTL = 20;
+
+var cachedResponses = {};
+function getCachedResponse(address, port){
+  if(cachedResponses[address + ":" + port] != null){
+    if(cachedResponses[address + ":" + port].time+20 >= Math.floor(Date.now() / 1000)){
+      return cachedResponses[address + ":" + port].data;
+    }
+  }
+  return null;
+}
+function setCachedResponse(address, port, data){
+  cachedResponses[address + ":" + port] = {
+    time: Math.floor(Date.now() / 1000),
+    data: data
+  };
+}
 module.exports = function (address, port, style, cb) {
   if (typeof style === "function") {
     cb = style;
@@ -58,18 +75,8 @@ module.exports = function (address, port, style, cb) {
       outputFormat: "buffer"
     };
   }
-  mcpeping(address, port, function (err, res) {
-    if (err) {
-      res = {
-        hostname: address,
-        port: port,
-        offline: true
-      };
-    }
-    else {
-      res.online = true;
-      res.cleanName = res.name.replace(/\xA7[0-9A-FK-OR]/ig, '');
-    }
+  var res = getCachedResponse(address, port);
+  if(res !== null){
     var render = gm(style.image);
     for(var i = 0; i < style.text.length; i++){
       var content = Handlebars.compile(style.text[i].content);
@@ -86,5 +93,37 @@ module.exports = function (address, port, style, cb) {
         cb(err, buffer);
       });
     }
-  }, 5000);
+  }
+  else {
+    mcpeping(address, port, function (err, res) {
+      setCachedResponse(address, port, res);
+      if (err) {
+        res = {
+          hostname: address,
+          port: port,
+          offline: true
+        };
+      }
+      else {
+        res.online = true;
+        res.cleanName = res.name.replace(/\xA7[0-9A-FK-OR]/ig, '');
+      }
+      var render = gm(style.image);
+      for (var i = 0; i < style.text.length; i++) {
+        var content = Handlebars.compile(style.text[i].content);
+        render
+          .font(style.font, style.text[i].size)
+          .fill(style.text[i].color)
+          .drawText(style.text[i].x, style.text[i].y, content(res));
+      }
+      if (style.outputFormat == "stream") {
+        cb(null, render.stream());
+      }
+      else {
+        render.toBuffer("PNG", function (err, buffer) {
+          cb(err, buffer);
+        });
+      }
+    }, 5000);
+  }
 };
