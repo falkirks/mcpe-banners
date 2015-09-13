@@ -3,11 +3,11 @@ var gm = require('gm').subClass({imageMagick: true});
 var mcpeping = require('mcpe-ping');
 var Handlebars = require('handlebars');
 module.exports = function (address, port, style, cb) {
-  if (typeof style === "function" && cb === null) {
+  if (typeof style === "function") {
     cb = style;
     style = null;
   }
-  if (style == null) {
+  if (style === null) {
     style = {
       image: __dirname + "/resources/default.png",
       font: __dirname + "/resources/font.ttf",
@@ -54,12 +54,17 @@ module.exports = function (address, port, style, cb) {
           color: "#7FFF00",
           content: "{{#if online}}{{currentPlayers}}/{{maxPlayers}}{{/if}}"
         }
-      ]
+      ],
+      outputFormat: "buffer"
     };
   }
   mcpeping(address, port, function (err, res) {
     if (err) {
-      res.offline = true;
+      res = {
+        hostname: address,
+        port: port,
+        offline: true
+      };
     }
     else {
       res.online = true;
@@ -73,6 +78,13 @@ module.exports = function (address, port, style, cb) {
         .fill(style.text[i].color)
         .drawText(style.text[i].x, style.text[i].y, content(res));
     }
-    cb(null, render.stream());
+    if(style.outputFormat == "stream"){
+      cb(null, render.stream());
+    }
+    else {
+      render.toBuffer("PNG", function (err, buffer) {
+        cb(err, buffer);
+      });
+    }
   }, 5000);
 };

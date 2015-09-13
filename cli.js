@@ -13,6 +13,6 @@ var cli = meow({
   ].join('\n')
 });
 
-mcpeBanners(cli.flags.address, cli.flags.port || 19132, function(err, pipe){
-    pipe.pipe(process.stdout);
+mcpeBanners(cli.flags.address, cli.flags.port || 19132, function(err, buffer){
+  process.stdout.write(buffer);
 });
