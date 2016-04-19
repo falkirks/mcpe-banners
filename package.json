@@ -1,6 +1,6 @@
 {
   "name": "mcpe-banners",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Cute module for generating MCPE server banners.",
   "homepage": "https://github.com/Falkirks/mcpe-banners",
   "author": {
@@ -10,10 +10,6 @@
   },
   "repository": "Falkirks/mcpe-banners",
   "license": "MIT",
-  "files": [
-    "index.js",
-    "cli.js"
-  ],
   "keywords": [
     "mcpe-banners",
     "mcpe",
@@ -21,9 +17,9 @@
     "image"
   ],
   "dependencies": {
-    "gm": "^1.18.1",
+    "gm": "1.22.0",
     "handlebars": "^4.0.2",
-    "mcpe-ping": "0.0.0",
+    "mcpe-ping": "0.0.3",
     "meow": "^3.1.0",
     "merge": "^1.2.0"
   },
