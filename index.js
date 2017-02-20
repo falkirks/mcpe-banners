@@ -107,6 +107,7 @@ module.exports = function (address, port, style, cb) {
       else {
         res.online = true;
         res.cleanName = res.name.replace(/\xA7[0-9A-FK-OR]/ig, '');
+        res.hostname = address;
       }
       var render = gm(style.image);
       for (var i = 0; i < style.text.length; i++) {
