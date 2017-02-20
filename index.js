@@ -96,7 +96,6 @@ module.exports = function (address, port, style, cb) {
   }
   else {
     mcpeping(address, port, function (err, res) {
-      setCachedResponse(address, port, res);
       if (err) {
         res = {
           hostname: address,
@@ -109,6 +108,7 @@ module.exports = function (address, port, style, cb) {
         res.cleanName = res.name.replace(/\xA7[0-9A-FK-OR]/ig, '');
         res.hostname = address;
       }
+      setCachedResponse(address, port, res);
       var render = gm(style.image);
       for (var i = 0; i < style.text.length; i++) {
         var content = Handlebars.compile(style.text[i].content);
