@@ -1,6 +1,6 @@
 {
   "name": "mcpe-banners",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Cute module for generating MCPE server banners.",
   "homepage": "https://github.com/Falkirks/mcpe-banners",
   "author": {
@@ -19,6 +19,7 @@
   "dependencies": {
     "gm": "1.22.0",
     "handlebars": "^4.0.2",
+    "jimp": "^0.2.28",
     "mcpe-ping": "0.0.4",
     "meow": "^3.1.0",
     "merge": "^1.2.0"
